@@ -193,10 +193,9 @@ Rectangle {
         id: timetr
         interval: 500
         repeat: true
+        running: true
         onTriggered: {
             timelb.text = Qt.formatDateTime(new Date(), "HH:mm")
         }
     }
-    
-    Component.onCompleted: print(sddm.canPowerOff)
 }
