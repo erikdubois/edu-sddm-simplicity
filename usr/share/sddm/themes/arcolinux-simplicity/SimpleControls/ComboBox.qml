@@ -50,7 +50,7 @@ ComboBox {
         leftPadding: 5
         rightPadding: control.indicator.width + control.spacing
 
-        text: control.displayText
+        text: control.displayText ? control.displayText : getValue()
         font: control.font
         color: "white"
         verticalAlignment: Text.AlignVCenter
@@ -87,6 +87,14 @@ ComboBox {
     }
 
     function getValue() {
-        return control.delegateModel.items.get(control.currentIndex).model.name;
+        var items = control.delegateModel.items
+        var index = control.currentIndex
+        if (0 <= index && index < items.count) {
+            return items.get(index).model.name
+        }
+        // index error, return last user
+        else {
+            return userModel.lastUser
+        }
     }
 }

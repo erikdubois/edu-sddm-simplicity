@@ -19,9 +19,9 @@ Rectangle {
     Connections {
         target: sddm
         
-        onLoginSucceeded: {}
+        function onLoginSucceeded() {}
         
-        onLoginFailed: {
+        function onLoginFailed() {
             pw_entry.clear()
             pw_entry.focus = true
             
