@@ -3,14 +3,6 @@
 ##################################################################################################################
 # Author    : Erik Dubois
 # Website   : https://www.erikdubois.be
-# Website   : https://www.alci.online
-# Website   : https://www.ariser.eu
-# Website   : https://www.arcolinux.info
-# Website   : https://www.arcolinux.com
-# Website   : https://www.arcolinuxd.com
-# Website   : https://www.arcolinuxb.com
-# Website   : https://www.arcolinuxiso.com
-# Website   : https://www.arcolinuxforum.com
 ##################################################################################################################
 #
 #   DO NOT JUST RUN THIS. EXAMINE AND JUDGE. RUN AT YOUR OWN RISK.
@@ -30,23 +22,15 @@
 # reset - commit your changes or stash them before you merge
 # git reset --hard - personal alias - grh
 
-# checking if I have the latest files from github
-echo "Checking for newer files online first"
-git pull
+if [[ -f "./repo.sh" ]]; then
+    echo "Found repo.sh, running it..."
+    bash ./repo.sh
+fi
 
 # Below command will backup everything inside the project folder
 git add --all .
 
-# Give a comment to the commit if you want
-echo "####################################"
-echo "Write your commit comment!"
-echo "####################################"
-
-read input
-
-# Committing to the local repository with a message containing the time details and commit text
-
-git commit -m "$input"
+git commit -m "update"
 
 # Push the local files to github
 
