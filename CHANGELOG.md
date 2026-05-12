@@ -1,5 +1,23 @@
 # CHANGELOG
 
+## 2026.05.12
+
+### What Changed
+
+Diagnosed and fixed the edu-simplicity theme showing a black screen on PrismLinux. Root cause was kwin_wayland (the Wayland SDDM compositor) unable to open `/dev/dri/card0` due to missing group membership for the sddm user. Fixed by adding sddm to the `video` group (`sudo usermod -aG video sddm`). Also confirmed that PrismLinux uses xlibre (not xorg-server), so `DisplayServer=x11` is not viable there — must stay on Wayland.
+
+### Technical Details
+
+- `/dev/dri/card0` is owned by group `video` (gid 983) with `0660` perms; sddm (uid 961) had no access
+- logind ACL-based seat management was not granting sddm greeter DRM access dynamically
+- `DisplayServer=x11` attempted as workaround but X server (xlibre) wouldn't start via SDDM — binary path mismatch
+- Correct fix: `usermod -aG video sddm` + keep `DisplayServer=wayland`
+- PrismLinux SDDM settings are managed through ATT (hidden section)
+
+### Files Modified
+
+None — theme QML unchanged; system config changes made on PrismLinux.
+
 ## 2026.05.10 (session 3)
 
 ### What Changed
